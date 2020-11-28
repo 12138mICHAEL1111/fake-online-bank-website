@@ -1,9 +1,10 @@
 class CreateAccounts < ActiveRecord::Migration[6.0]
   def change
     create_table :accounts do |t|
-      t.float :balance, index: true
-      t.integer :user_id
+      t.float :balance
       t.string :currency
+
+      t.integer :user_id
 
       t.timestamps
     end
