@@ -5,6 +5,8 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.integer :account_id
       t.string :description
 
+      t.date :completed_on
+
       t.timestamps
     end
   end
