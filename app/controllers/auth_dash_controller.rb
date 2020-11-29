@@ -1,0 +1,2 @@
+class AuthDashController < ApplicationController
+end
