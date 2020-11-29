@@ -1,0 +1,2 @@
+class DashController < ApplicationController
+end
