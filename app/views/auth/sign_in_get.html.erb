@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <div class="d-flex flex-column align-items-center">
+        <h1>Sign in</h1>
+
+        <div class="form_card mt-4">
+            <form class="d-flex flex-column" action="/sign_in_post" method="post">
+                <div>
+                    <label for="name" class="control-label">Email</label>
+                </div>
+                <input type="text" class="form-control" placeholder="Email" name="email">
+                <div class="mt-4">
+                    <label for="name" class="control-label">Password</label>
+                </div>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+                <div class="d-flex justify-content-center mt-4">
+                    <input name="commit" type="submit" value="Sign in" class="btn btn-primary" />
+                </div>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            </form>
+        </div>
+    </div>
+</div>

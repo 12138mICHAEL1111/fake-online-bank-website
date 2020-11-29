@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AuthDashControllerTest < ActionDispatch::IntegrationTest
+class AdminDashControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
