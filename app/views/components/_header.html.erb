@@ -1,0 +1,11 @@
+<div class="d-flex flex-row align-items-center justify-content-between w-100">
+    <div>
+    <% if current_user%>
+        <%= current_user.email %>
+        <% if current_user.admin %>
+            (admin)
+        <% end %>
+    <% end %>
+    </div>
+    <%= button_to "Sign out", 'sign_out', :class => "btn btn-primary" %>
+</div>

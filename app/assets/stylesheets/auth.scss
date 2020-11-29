@@ -1,0 +1,16 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #f9f9f9;
+}
+
+.form_card {
+  padding: 24px;
+  background-color: white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  min-width: 400px;
+}
