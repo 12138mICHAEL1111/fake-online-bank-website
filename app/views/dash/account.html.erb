@@ -1,4 +1,24 @@
 <div class="container d-flex flex-column align-items-center pt-5">
     <%= render 'components/header' %>
-    acccount
+
+    <h2 class="mt-5 mb-4">Account</h2>
+
+    <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white rounded
+        d-flex justify-content-between" style="height: 50px;">
+      <p style="font-size:1rem;"><strong>Account name: </strong><%=@account.name%></p>
+      <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(@account.balance, @account.currency) %></p>
+    </div>
+
+    <h2 class="mt-5 mb-4">Transactions</h2>
+
+    <% @transactions.each do |transaction|%>
+        <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white rounded
+            d-flex justify-content-between" style="height: 50px;">
+          <p style="font-size:1rem;"><strong>Description: </strong><%= transaction.description %></p>
+          <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
+          <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyAmount(transaction.amount, @account.currency)%></p>
+        </div>
+    <% end %>
+
+    <%= button_to "Back", "/dash", :method => "get", :class => "btn btn-primary mt-4" %>
 </div>

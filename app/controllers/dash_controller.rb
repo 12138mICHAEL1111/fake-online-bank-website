@@ -2,7 +2,10 @@ class DashController < ApplicationController
     def root
         if current_user == nil || current_user.admin == true
             redirect_to '/'
+        else
+            @accounts = current_user.accounts
         end
+
     end
 
     def account
@@ -12,7 +15,10 @@ class DashController < ApplicationController
             @account = Account.find(params[:account_id])
             if @account.user_id != current_user.id
                 redirect_to '/'
+            else
+                @transactions = @account.transactions
             end
+
         end
     end
 end
