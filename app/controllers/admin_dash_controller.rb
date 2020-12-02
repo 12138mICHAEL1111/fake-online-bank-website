@@ -4,6 +4,7 @@ class AdminDashController < ApplicationController
         if current_user == nil || current_user.admin == false
             p "hej"
             redirect_to '/'
+        else @users = User.where(:admin => false)
         end
     end
 
@@ -12,6 +13,7 @@ class AdminDashController < ApplicationController
             redirect_to '/'
         else
             @user = User.find(params[:user_id])
+            @accounts = @user.accounts
         end
     end
 
