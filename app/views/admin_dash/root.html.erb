@@ -9,7 +9,9 @@
           <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
         </div>
     <% end %>
-    <%= button_to "Create User", action: "create_user", :class => "btn btn-primary" %>
+    <div>
+    <%= button_to 'Create User', 'admin_dash/create/user', :class => "btn btn-primary mt-4" %>
+    </div>
 
 
 </div>
