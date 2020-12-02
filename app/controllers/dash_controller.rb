@@ -16,7 +16,7 @@ class DashController < ApplicationController
             if @account.user_id != current_user.id
                 redirect_to '/'
             else
-                @transactions = @account.transactions
+                @transactions = @account.transactions.order(completed_on: :desc)
             end
 
         end
