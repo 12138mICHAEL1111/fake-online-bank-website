@@ -30,11 +30,16 @@ class AdminDashController < ApplicationController
             redirect_to '/'
         else
           @user = User.new
-          render "create_user"
         end
     end
 
     def create_user_post
+      @user = User.new(user_params)
+      if @user.save
+        redirect_to('/admin_dash')
+      else
+        render('create_user')
+      end
 
     end
 
@@ -48,5 +53,9 @@ class AdminDashController < ApplicationController
         if current_user == nil || current_user.admin == false
             redirect_to '/'
         end
+    end
+
+    def user_params
+      params.require(:user).permit(:email, :name, :password)
     end
 end
