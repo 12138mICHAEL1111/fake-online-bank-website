@@ -1,4 +1,26 @@
 <div class="container d-flex flex-column align-items-center pt-5">
     <%= render 'components/header' %>
-    create user
+    <h2 class="mt-5 mb-4">Create User</h2>
+    <div class="border shadow w-100 d-flex p-3 mb-2
+      bg-white rounded d-flex justify-content-between">
+    <%=  form_for(@user, :url => '/admin_dash/create/user_post', :method => 'post') do |f| %>
+    Email address
+    <br>
+    <%= f.text_field(:email) %>
+    <br> <br>
+    Name
+    <br>
+    <%= f.text_field(:email) %>
+    <br> <br>
+    Password
+    <br>
+    <%= f.password_field(:password) %>
+    <div>
+      <%= f.submit("Create", :class => "btn btn-primary mt-4") %>
+      <% end %>
+</div>
+</div>
+<div>
+<%= button_to 'Cancel', '/admin_dash/create/user', :class => "btn btn-primary mt-4", :method => :get %>
+</div>
 </div>

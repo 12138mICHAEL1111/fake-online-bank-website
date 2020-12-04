@@ -29,8 +29,13 @@ class AdminDashController < ApplicationController
         if current_user == nil || current_user.admin == false
             redirect_to '/'
         else
-          render "create/user"
+          @user = User.new
+          render "create_user"
         end
+    end
+
+    def create_user_post
+
     end
 
     def create_account
