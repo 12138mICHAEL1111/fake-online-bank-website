@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2020_12_01_162630) do
-  
+
   create_table "accounts", force: :cascade do |t|
     t.float "balance", null: false
     t.string "currency", null: false

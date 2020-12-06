@@ -1,26 +1,37 @@
-<div class="container d-flex flex-column align-items-center pt-5">
+<div class="container d-flex flex-column align-items-center py-5">
     <%= render 'components/header' %>
+
+    <h2 class="mt-5 mb-4">Users</h2>
+    <% @users.each do |user|%>
+        <div class="border shadow w-100 d-flex p-3 mb-2
+          bg-white rounded d-flex justify-content-between" type="button" style="height: 50px;"
+           onclick="window.location.href='admin_dash/user/<%= user.id %>'">
+          <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
+          <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
+        </div>
+    <% end %>
+
     <h2 class="mt-5 mb-4">Create User</h2>
-    <div class="border shadow w-100 d-flex p-3 mb-2
-      bg-white rounded d-flex justify-content-between form_card mt4">
-    <%=  form_for(@user, :url => '/admin_dash/create/user_post', :method => 'post') do |f| %>
-    Email address
-    <br>
-    <%= f.email_field(:email) %>
-    <br> <br>
-    Name
-    <br>
-    <%= f.text_field(:email) %>
-    <br> <br>
-    Password
-    <br>
-    <%= f.password_field(:password) %>
-    <div>
-      <%= f.submit("Create", :class => "btn btn-primary mt-4") %>
+    <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card mt4">
+      <%=  form_for(@user, :url => '/admin_dash/create/user_post', :method => 'post') do |f| %>
+        <div>
+          <label for="email" class="control-label">Email</label>
+        </div>
+        <%= f.text_field(:email, class: "form-control") %>
+        <div>
+          <label for="name" class="control-label">Name</label>
+        </div>
+        <%= f.text_field(:name, class: "form-control") %>
+        <div>
+          <label for="password" class="control-label">Password</label>
+        </div>
+        <%= f.text_field(:password, class: "form-control") %>
+        <div class="d-flex justify-content-center mt-4">
+            <input name="commit" type="submit" value="Create account" class="btn btn-primary" />
+        </div>
       <% end %>
-</div>
-</div>
-<div>
-<%= button_to 'Cancel', '/admin_dash', :class => "btn btn-primary mt-4", :method => :get %>
-</div>
+    </div>
+    <div>
+    <%= button_to 'Cancel', '/admin_dash', :class => "btn btn-primary mt-4", :method => :get %>
+    </div>
 </div>

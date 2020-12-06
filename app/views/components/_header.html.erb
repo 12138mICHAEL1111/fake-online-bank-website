@@ -1,9 +1,8 @@
 <div class="d-flex flex-row align-items-center justify-content-between w-100">
     <div>
     <% if current_user%>
-        <%= current_user.email %>
-        <br>
-        <%= current_user.name %>
+        Signed in as:
+        <span class="font-weight-bold"><%= current_user.name %></span>
         <% if current_user.admin %>
             (admin)
         <% end %>
