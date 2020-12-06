@@ -1,4 +1,35 @@
 <div class="container d-flex flex-column align-items-center pt-5">
     <%= render 'components/header' %>
-    create account
+    <h2 class="mt-5 mb-4">User</h2>
+
+    <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
+        d-flex justify-content-between" style="height: 50px;">
+      <p style="font-size:1rem;"><strong>Name: </strong><%=@user.email%></p>
+      <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= @user.accounts.length %></p>
+    </div>
+
+    <h2 class="mt-5 mb-4">Create Account</h2>
+    <div class="border shadow w-100 d-flex p-3 mb-2
+      bg-white rounded d-flex justify-content-between form_card mt4">
+    <%=  form_for(@account, :url => "/admin_dash/create/account_post/#{@user.id}", :method => 'post') do |f| %>
+    Account name
+    <br>
+    <%= f.text_field(:name) %>
+    <br> <br>
+    Balance
+    <br>
+    <%= f.number_field(:balance) %>
+    <br> <br>
+    Currency
+    <br>
+    <%= f.select(:currency, [['€', '€'], ['£', '£'], ['$', '$']]) %>
+    <br> <br>
+    <div>
+      <%= f.submit("Create", :class => "btn btn-primary mt-4") %>
+      <% end %>
+</div>
+</div>
+<div>
+<%= button_to 'Cancel', "/admin_dash/user/#{@user.id}", :class => "btn btn-primary mt-4", :method => :get %>
+</div>
 </div>
