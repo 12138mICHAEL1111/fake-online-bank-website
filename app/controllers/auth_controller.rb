@@ -44,6 +44,9 @@ class AuthController < ApplicationController
     end
 
     def sign_up_post
+        p params
+        @new_user = User.new
+        p @new_user
         @user = User.create({
             :email => params[:email],
             :name => params[:name],
