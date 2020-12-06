@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Dash paths
   get '/dash', to: 'dash#root'
   get '/dash/account/:account_id', to: 'dash#account'
-  
+
   # Admin dash paths
   get '/admin_dash', to: 'admin_dash#root'
   get '/admin_dash/user/:user_id', to: 'admin_dash#user'
