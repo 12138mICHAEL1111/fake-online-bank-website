@@ -1,4 +1,12 @@
 <div class="container d-flex flex-column align-items-center pt-5">
     <%= render 'components/header' %>
-    root
+    <h2 class="mt-5 mb-4">Accounts</h2>
+    <% @accounts.each do |account|%>
+        <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded d-flex
+            justify-content-between" type="button" style="height: 50px;"
+           onclick="window.location.href='dash/account/<%= account.id %>'">
+          <p style="font-size:1rem;"><strong>Account name: </strong><%=account.name%></p>
+          <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyBalance(account.balance, account.currency) %></p>
+        </div>
+    <% end %>
 </div>

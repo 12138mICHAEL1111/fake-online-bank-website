@@ -2,10 +2,12 @@
     <div>
     <% if current_user%>
         <%= current_user.email %>
+        <br>
+        <%= current_user.name %>
         <% if current_user.admin %>
             (admin)
         <% end %>
     <% end %>
     </div>
-    <%= button_to "Sign out", '/sign_out', :class => "btn btn-primary" %>
+    <%= button_to "Sign out", sign_out_url, :class => "btn btn-primary" %>
 </div>

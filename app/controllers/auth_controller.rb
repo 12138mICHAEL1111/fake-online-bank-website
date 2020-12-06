@@ -18,7 +18,7 @@ class AuthController < ApplicationController
             end
         end
     end
-    
+
     def sign_out_post
         sign_out
         redirect_to '/hej'
@@ -46,6 +46,7 @@ class AuthController < ApplicationController
     def sign_up_post
         @user = User.create({
             :email => params[:email],
+            :name => params[:name],
             :password => params[:password],
             :password_confirmation => params[:password_confirmation],
             :admin => params[:admin] || false
