@@ -24,6 +24,7 @@
           <p style="font-size:1rem;"><strong>Description: </strong><%= transaction.description %></p>
           <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
           <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyBalance(transaction.amount, @account.currency)%></p>
+          <%= button_to "Edit", "/admin_dash/edit/transaction/#{transaction.id}", :method => "get", :class => "btn btn-primary  " %>
         </div>
     <% end %>
 

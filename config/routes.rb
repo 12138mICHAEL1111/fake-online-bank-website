@@ -20,13 +20,15 @@ Rails.application.routes.draw do
   get '/admin_dash/user/:user_id', to: 'admin_dash#user'
   get '/admin_dash/account/:account_id', to: 'admin_dash#account'
 
-  # Admin dash create paths
+  # Admin dash create and edit paths
   post '/admin_dash/create/user_post', to: 'admin_dash#create_user_post'
   post '/admin_dash/create/account_post/:user_id', to: 'admin_dash#create_account_post'
   post '/admin_dash/create/transaction_post/:account_id', to: 'admin_dash#create_transaction_post'
+  post '/admin_dash/edit/transaction_post/:transaction_id', to: 'admin_dash#edit_transaction_post'
   get '/admin_dash/create/user', to: 'admin_dash#create_user'
   get '/admin_dash/create/account/:user_id', to: 'admin_dash#create_account'
   get '/admin_dash/create/transaction/:account_id', to: 'admin_dash#create_transaction'
+  get '/admin_dash/edit/transaction/:transaction_id', to: 'admin_dash#edit_transaction'
 
 
 end

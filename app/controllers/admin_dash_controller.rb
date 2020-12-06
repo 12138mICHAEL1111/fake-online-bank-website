@@ -111,7 +111,7 @@ class AdminDashController < ApplicationController
             @account = @transaction.account
             @account.balance = @account.balance + @transaction.amount
             @account.save
-            
+
             redirect_to("/admin_dash/account/#{params[:account_id]}")
           else
             redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
@@ -119,4 +119,33 @@ class AdminDashController < ApplicationController
         end
     end
 
+    def edit_transaction
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @transaction = Transaction.find(params[:transaction_id])
+        @account = @transaction.account
+        @user = @account.user
+        @accounts = @user.accounts
+      end
+    end
+
+    def edit_transaction_post
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        originalTransaction = Transaction.find(params[:transaction_id])
+        @transaction = Transaction.find(params[:transaction_id])
+        @transaction.update(tran_params)
+        @account = @transaction.account
+        @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
+        @account.save
+        redirect_to("/admin_dash/account/#{@account.id}")
+      end
+    end
+
+    private
+      def tran_params
+        params.require(:transaction).permit(:amount,:description,:completed_on)
+      end
 end
