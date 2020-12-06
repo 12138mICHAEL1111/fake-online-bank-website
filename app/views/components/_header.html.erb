@@ -2,6 +2,8 @@
     <div>
     <% if current_user%>
         <%= current_user.email %>
+        <br>
+        <%= current_user.name %>
         <% if current_user.admin %>
             (admin)
         <% end %>
