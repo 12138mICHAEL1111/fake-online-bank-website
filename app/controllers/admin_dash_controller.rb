@@ -136,13 +136,26 @@ class AdminDashController < ApplicationController
       else
         originalTransaction = Transaction.find(params[:transaction_id])
         @transaction = Transaction.find(params[:transaction_id])
-        @transaction.update(tran_params)
-        @account = @transaction.account
-        @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
-        @account.save
-        redirect_to("/admin_dash/account/#{@account.id}")
+        begin @transaction.update(tran_params)
+          @account = @transaction.account
+          @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
+          @account.save
+          redirect_to("/admin_dash/account/#{@account.id}")
+        rescue
+          redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
+        end
       end
     end
+
+    def delete_transaction
+      @transaction = Transaction.find(params[:transaction_id])
+      @account = @transaction.account
+      @account.balance = @account.balance-@transaction.amount
+      @transaction.destroy
+      @account.save
+      redirect_to("/admin_dash/account/#{@account.id}")
+    end
+
 
     private
       def tran_params
