@@ -131,19 +131,15 @@ class AdminDashController < ApplicationController
     end
 
     def edit_transaction_post
-      if current_user == nil || current_user.admin == false
-          redirect_to '/'
-      else
-        originalTransaction = Transaction.find(params[:transaction_id])
-        @transaction = Transaction.find(params[:transaction_id])
-        begin @transaction.update(tran_params)
-          @account = @transaction.account
-          @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
-          @account.save
-          redirect_to("/admin_dash/account/#{@account.id}")
-        rescue
-          redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
-        end
+      originalTransaction = Transaction.find(params[:transaction_id])
+      @transaction = Transaction.find(params[:transaction_id])
+      begin @transaction.update(tran_params)
+        @account = @transaction.account
+        @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
+        @account.save
+        redirect_to("/admin_dash/account/#{@account.id}")
+      rescue
+        redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
       end
     end
 
@@ -156,9 +152,67 @@ class AdminDashController < ApplicationController
       redirect_to("/admin_dash/account/#{@account.id}")
     end
 
+    def edit_account
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @account = Account.find(params[:account_id])
+        @user = @account.user
+        @accounts = @user.accounts
+      end
+    end
 
+    def edit_account_post
+        @account =  Account.find(params[:account_id])
+        @user = @account.user
+        @account.update(account_params)
+        @account.save
+        redirect_to("/admin_dash/user/#{@user.id}")
+
+    end
+
+    def delete_account
+      @account =  Account.find(params[:account_id])
+      @user = @account.user
+      @account.destroy
+      redirect_to("/admin_dash/user/#{@user.id}")
+    end
+
+    def edit_user
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @user = User.find(params[:user_id])
+      end
+    end
+
+    def edit_user_post
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @user =  User.find(params[:user_id])
+        @user.update(user_params)
+        @user.save
+        redirect_to("/admin_dash")
+      end
+    end
+
+    def delete_user
+      @user =  User.find(params[:user_id])
+
+      @user.destroy
+      redirect_to("/admin_dash")
+    end
     private
       def tran_params
         params.require(:transaction).permit(:amount,:description,:completed_on)
+      end
+
+      def account_params
+        params.require(:account).permit(:name,:currency)
+      end
+
+      def user_params
+        params.require(:user).permit(:email,:name)
       end
 end
