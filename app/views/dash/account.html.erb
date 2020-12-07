@@ -12,11 +12,19 @@
     <h2 class="mt-5 mb-4">Transactions</h2>
 
     <% @transactions.each do |transaction|%>
-        <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white d-flex
-            justify-content-between" style="height: 50px;">
-          <p style="font-size:1rem;"><strong>Description: </strong><%= transaction.description %></p>
-          <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
-          <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyAmount(transaction.amount, @account.currency)%></p>
+        <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white
+            d-flex justify-content-between" style="height: 50px;">
+          <div class="w-25 text-truncate">
+            <p style="font-size:1rem;"><strong>Description: </strong><%= transaction.description %></p>
+          </div>
+          <div class="w-50 d-flex justify-content-center">
+            <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
+          </div>
+          <div class="w-25 d-flex justify-content-end">
+            <div class="w-50">
+              <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyAmount(transaction.amount, @account.currency)%></p>
+            </div>
+          </div>
         </div>
     <% end %>
 
