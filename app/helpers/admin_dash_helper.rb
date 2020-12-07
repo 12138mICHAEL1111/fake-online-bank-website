@@ -27,7 +27,7 @@ module AdminDashHelper
 
 
   def generateTransactionArray(account_id)
-    types = ["Restaurant", "Appliances", "Bills"]
+    types = ["Restaurant", "Appliances", "Bills", "Bills", "Friend"]
     types.each do |t|
       transaction = Transaction.new(getTransactionHash(account_id, t))
       if !saveTransactionAndUpdateBalance(transaction)
@@ -59,6 +59,13 @@ module AdminDashHelper
         account_id: account_id,
         description: Faker::Company.name,
         amount: Faker::Number.normal(mean: -20, standard_deviation: 2.5).to_d.round(2),
+        completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
+      }
+    when "Friend"
+      {
+        account_id: account_id,
+        description: Faker::Name.name,
+        amount: Faker::Number.normal(mean: 70, standard_deviation: 25).to_d.round(2),
         completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
       }
     end
