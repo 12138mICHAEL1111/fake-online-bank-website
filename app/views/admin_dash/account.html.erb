@@ -14,7 +14,7 @@
     <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
         d-flex justify-content-between" style="height: 50px;">
       <p style="font-size:1rem;"><strong>Account name: </strong><%=@account.name%></p>
-      <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(@account.balance, @account.currency) %></p>
+      <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyBalance(@account.balance, @account.currency) %></p>
     </div>
     <h2 class="mt-5 mb-4">Transactions</h2>
 
@@ -39,6 +39,11 @@
         </div>
     <% end %>
 
-    <%= button_to "Back", "/admin_dash/user/#{@user.id}", :method => "get", :class => "btn btn-primary mt-4" %>
-    <%= button_to "Create Transaction", "/admin_dash/create/transaction/#{@account.id}", :method => "get", :class => "btn btn-primary mt-4" %>
+    <div class="d-flex justify-content-between p-3 mb-2 w-50">
+      <%= button_to "Back", "/admin_dash/user/#{@user.id}", :method => "get", :class => "btn btn-primary mt-4" %>
+      <%= button_to "Create Transaction", "/admin_dash/create/transaction/#{@account.id}", :method => "get", :class => "btn btn-primary mt-4" %>
+      <%= button_to "Generate Transactions", "/admin_dash/account/#{@account.id}", :method => "post", :class => "btn btn-primary mt-4" %>
+    </div>
+
+
 </div>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/admin_dash', to: 'admin_dash#root'
   get '/admin_dash/user/:user_id', to: 'admin_dash#user'
   get '/admin_dash/account/:account_id', to: 'admin_dash#account'
+  post '/admin_dash/account/:account_id', to: 'admin_dash#generate_transaction'
 
   # Admin dash create, edit and delete paths
   post '/admin_dash/create/user_post', to: 'admin_dash#create_user_post'
