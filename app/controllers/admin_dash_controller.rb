@@ -112,7 +112,7 @@ class AdminDashController < ApplicationController
           })
           if @transaction.save
             @account = @transaction.account
-            @account.balance = @account.balance + @transaction.amount
+            @account.balance = (@account.balance + @transaction.amount).round(2)
             @account.save
 
             redirect_to("/admin_dash/account/#{params[:account_id]}")
@@ -138,7 +138,7 @@ class AdminDashController < ApplicationController
       @transaction = Transaction.find(params[:transaction_id])
       begin @transaction.update(tran_params)
         @account = @transaction.account
-        @account.balance = @account.balance-originalTransaction.amount + @transaction.amount
+        @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
         @account.save
         redirect_to("/admin_dash/account/#{@account.id}")
       rescue
@@ -149,7 +149,7 @@ class AdminDashController < ApplicationController
     def delete_transaction
       @transaction = Transaction.find(params[:transaction_id])
       @account = @transaction.account
-      @account.balance = @account.balance-@transaction.amount
+      @account.balance = (@account.balance-@transaction.amount).round(2)
       @transaction.destroy
       @account.save
       redirect_to("/admin_dash/account/#{@account.id}")
