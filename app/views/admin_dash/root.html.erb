@@ -6,12 +6,14 @@
           bg-white rounded d-flex justify-content-between" type="button" style="height: 50px;"
            onclick="window.location.href='admin_dash/user/<%= user.id %>'">
            <div class="w-25">
+             <span class="text-nowrap">
           <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
+            <span>
           </div>
           <div class="w-25 d-flex justify-content-start mr-5">
             <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
           </div>
-          <div class = 'btn-group', style = "margin-top:-10px">
+          <div class = 'btn-group', style = "margin-top:-11px">
             <%= button_to "Edit", "/admin_dash/edit/user/#{user.id}", :method => "get", :class => "btn btn-secondary"%>
             <%= button_to "Delete", "/admin_dash/delete/user/#{user.id}", :method => "get", :class => "btn btn-primary ml-2 " %>
           </div>

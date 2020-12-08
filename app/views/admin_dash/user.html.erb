@@ -19,7 +19,7 @@
           <div class="w-25 d-flex justify-content-start">
             <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyBalance(account.balance, account.currency)%></p>
           </div>
-          <div class = 'btn-group', style = "margin-top:-10px">
+          <div class = 'btn-group', style = "margin-top:-11px">
             <%= button_to "Edit", "/admin_dash/edit/account/#{account.id}", :method => "get", :class => "btn btn-secondary"%>
             <%= button_to "Delete", "/admin_dash/delete/account/#{account.id}", :method => "get", :class => "btn btn-primary ml-2 " %>
           </div>
