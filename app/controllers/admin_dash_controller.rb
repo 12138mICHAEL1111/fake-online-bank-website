@@ -206,18 +206,6 @@ class AdminDashController < ApplicationController
       @user.destroy
       redirect_to("/admin_dash")
     end
-    private
-      def tran_params
-        params.require(:transaction).permit(:amount,:description,:completed_on)
-      end
-
-      def account_params
-        params.require(:account).permit(:name,:currency)
-      end
-
-      def user_params
-        params.require(:user).permit(:email,:name)
-      end
 
     def generate_transaction
         if current_user == nil || current_user.admin == false
@@ -234,4 +222,18 @@ class AdminDashController < ApplicationController
             end
         end
     end
+    private
+      def tran_params
+        params.require(:transaction).permit(:amount,:description,:completed_on)
+      end
+
+      def account_params
+        params.require(:account).permit(:name,:currency)
+      end
+
+      def user_params
+        params.require(:user).permit(:email,:name)
+      end
+
+
 end
