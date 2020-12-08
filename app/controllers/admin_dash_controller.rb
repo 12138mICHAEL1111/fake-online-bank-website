@@ -1,4 +1,7 @@
 class AdminDashController < ApplicationController
+
+    include AdminDashHelper
+
     def root
         p current_user
         if current_user == nil || current_user.admin == false
@@ -24,7 +27,7 @@ class AdminDashController < ApplicationController
             @account = Account.find(params[:account_id])
             @user = @account.user
             @accounts = @user.accounts
-            @transactions = @account.transactions
+            @transactions = @account.transactions.order(completed_on: :desc)
         end
     end
 
@@ -111,11 +114,27 @@ class AdminDashController < ApplicationController
             @account = @transaction.account
             @account.balance = @account.balance + @transaction.amount
             @account.save
-            
+
             redirect_to("/admin_dash/account/#{params[:account_id]}")
           else
             redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
           end
+        end
+    end
+
+    def generate_transaction
+        if current_user == nil || current_user.admin == false
+            redirect_to '/'
+        else
+            account = Account.find(params[:account_id].to_i)
+            if generateTransactionArray(account.id)
+              # generate the flash success
+              redirect_to("/admin_dash/account/#{params[:account_id]}")
+            else
+              # generate the flash error
+              redirect_to("/admin_dash")
+              # the redirect was just used for debug
+            end
         end
     end
 
