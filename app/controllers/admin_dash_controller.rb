@@ -55,6 +55,7 @@ class AdminDashController < ApplicationController
         if @user.save
           redirect_to('/admin_dash')
         else
+          flash[:alert] = "Error: Something went wrong"
           redirect_to('/admin_dash/create/user')
         end
       end
@@ -83,6 +84,7 @@ class AdminDashController < ApplicationController
           if @account.save
             redirect_to("/admin_dash/user/#{params[:user_id]}")
           else
+            flash[:alert] = "Error: Something went wrong"
             redirect_to("/admin_dash/create/account/#{params[:user_id]}")
           end
       end
@@ -110,13 +112,13 @@ class AdminDashController < ApplicationController
             :description => params[:transaction][:description],
             :completed_on => params[:transaction][:completed_on],
           })
-          if @transaction.save
+          begin @transaction.save
             @account = @transaction.account
             @account.balance = (@account.balance + @transaction.amount).round(2)
-            @account.save
+              redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
 
-            redirect_to("/admin_dash/account/#{params[:account_id]}")
-          else
+          rescue
+            flash[:alert] = "Error: Something went wrong"
             redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
           end
         end
@@ -142,7 +144,9 @@ class AdminDashController < ApplicationController
         @account.save
         redirect_to("/admin_dash/account/#{@account.id}")
       rescue
+        flash[:alert] = "Error: Something went wrong"
         redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
+
       end
     end
 
@@ -168,10 +172,13 @@ class AdminDashController < ApplicationController
     def edit_account_post
         @account =  Account.find(params[:account_id])
         @user = @account.user
-        @account.update(account_params)
+        begin @account.update(account_params)
         @account.save
         redirect_to("/admin_dash/user/#{@user.id}")
-
+      rescue
+        flash[:alert] = "Error: Something went wrong"
+        redirect_to("/admin_dash/edit/account/#{@account.id}")
+      end
     end
 
     def delete_account
@@ -194,9 +201,14 @@ class AdminDashController < ApplicationController
           redirect_to '/'
       else
         @user =  User.find(params[:user_id])
+        begin
         @user.update(user_params)
         @user.save
         redirect_to("/admin_dash")
+      rescue
+        flash[:alert] = "Error: Something went wrong"
+        redirect_to("/admin_dash/edit/user/#{@user.id}")
+      end
       end
     end
 

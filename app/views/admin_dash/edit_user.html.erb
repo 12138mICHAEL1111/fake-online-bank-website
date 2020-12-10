@@ -17,6 +17,8 @@
             <input name="commit" type="submit" value="Edit account" class="btn btn-primary" />
         </div>
       <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
     </div>
 
     <%= button_to "Cancel",  "/admin_dash", :method => "get", :class => "btn btn-primary mt-4" %>

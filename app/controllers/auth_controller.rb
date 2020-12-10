@@ -28,6 +28,7 @@ class AuthController < ApplicationController
         @user = User.find_by_email(params[:email])
 
         if @user == nil
+            flash[:alert] = "Error: Something went wrong"
             redirect_to '/sign_in'
         else
             if @user.valid_password?(params[:password])
@@ -38,6 +39,7 @@ class AuthController < ApplicationController
                     redirect_to '/dash'
                 end
             else
+                flash[:alert] = "Error: Something went wrong"
                 redirect_to '/sign_in'
             end
         end
@@ -54,12 +56,16 @@ class AuthController < ApplicationController
             :password_confirmation => params[:password_confirmation],
             :admin => params[:admin] || false
         })
-        @user.save
+        if @user.save
         sign_in @user
         if @user.admin
             redirect_to '/admin_dash'
         else
             redirect_to '/dash'
         end
+      else
+        flash[:alert] = "Error: Something went wrong"
+        redirect_to '/sign_up'
     end
+  end
 end

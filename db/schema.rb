@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_12_01_131405) do
-=======
 ActiveRecord::Schema.define(version: 2020_12_01_162630) do
->>>>>>> 3ebb6a710ddddd9d534041a1e303da72adb8a364
 
   create_table "accounts", force: :cascade do |t|
     t.float "balance", null: false

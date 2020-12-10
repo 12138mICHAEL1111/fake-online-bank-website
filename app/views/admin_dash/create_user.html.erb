@@ -4,8 +4,7 @@
     <h2 class="mt-5 mb-4">Users</h2>
     <% @users.each do |user|%>
         <div class="border shadow w-100 d-flex p-3 mb-2
-          bg-white rounded d-flex justify-content-between" type="button" style="height: 50px;"
-           onclick="window.location.href='admin_dash/user/<%= user.id %>'">
+          bg-white rounded d-flex justify-content-between" style="height: 50px;">
           <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
           <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
         </div>
@@ -27,9 +26,11 @@
         </div>
         <%= f.text_field(:password, class: "form-control") %>
         <div class="d-flex justify-content-center mt-4">
-            <input name="commit" type="submit" value="Create account" class="btn btn-primary" />
+            <input name="commit" type="submit" value="Create User" class="btn btn-primary" />
         </div>
       <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
     </div>
     <div>
     <%= button_to 'Cancel', '/admin_dash', :class => "btn btn-primary mt-4", :method => :get %>
