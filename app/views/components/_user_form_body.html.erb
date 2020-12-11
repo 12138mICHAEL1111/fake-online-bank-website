@@ -1,0 +1,19 @@
+<div>
+  <label for="email" class="control-label">Email Address</label>
+</div>
+<%= f.text_field(:email, class: "form-control", required: true) %>
+<br/>
+<div>
+  <label for="name" class="control-label">Name</label>
+</div>
+<%= f.text_field(:name, class: "form-control", required: true) %>
+
+<% if(value_given == "Create User") %>
+    <div>
+      <label for="password" class="control-label">Password</label>
+    </div>
+    <%= f.text_field(:password, class: "form-control", required: true) %>
+<% end %>
+<div class="d-flex justify-content-center mt-4">
+  <input name="commit" type="submit" value=<%= value_given %> class="btn btn-primary" />
+</div>

@@ -1,39 +1,17 @@
 <div class="container d-flex flex-column align-items-center py-5">
     <%= render 'components/header' %>
-    <h2 class="mt-5 mb-4">User</h2>
 
-    <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
-        d-flex justify-content-between" style="height: 50px;">
-      <p style="font-size:1rem;"><strong>Email: </strong><%=@user.email%></p>
-      <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= @accounts.length %></p>
-    </div>
+    <!-- Render the user selected -->
+    <%= render :partial => 'components/current_user', :locals => {:user => @user} %>
 
-    <h2 class="mt-5 mb-4">Account</h2>
-
-    <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
-        d-flex justify-content-between" style="height: 50px;">
-      <p style="font-size:1rem;"><strong>Account name: </strong><%=@account.name%></p>
-      <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(@account.balance, @account.currency) %></p>
-    </div>
+    <!-- Render current account -->
+    <%= render :partial => 'components/current_account', :locals => {:account => @account} %>
 
     <h2 class="mt-5 mb-4">Edit Transaction</h2>
     <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card">
       <%=  form_for(@transaction, :url => "/admin_dash/edit/transaction_post/#{@transaction.id}", :method => 'post') do |f| %>
-        <div>
-          <label for="amount" class="control-label">Amount</label>
-        </div>
-        <%= f.number_field(:amount, step: :any, class: "form-control") %>
-        <div>
-          <label for="description" class="control-label">Description</label>
-        </div>
-        <%= f.text_field(:description, class: "form-control") %>
-        <div>
-          <label for="completed_on" class="control-label">Completed on</label>
-        </div>
-        <%= f.datetime_field(:completed_on, class: "form-control") %>
-        <div class="d-flex justify-content-center mt-4">
-            <input name="commit" type="submit" value="Edit transaction" class="btn btn-primary" />
-        </div>
+        <!-- transaction input fields -->
+        <%= render :partial => 'components/transaction_form_body', :locals => {:f => f, :value_given => "Edit Transaction"} %>
       <% end %>
     </div>
   <div>

@@ -1,0 +1,15 @@
+<div>
+  <label for="amount" class="control-label">Amount</label>
+</div>
+  <%= f.number_field(:amount, step: :any, class: "form-control", required: true) %>
+<div>
+  <label for="description" class="control-label">Description</label>
+</div>
+  <%= f.text_field(:description, class: "form-control", required: true) %>
+<div>
+  <label for="completed_on" class="control-label">Completed on</label>
+</div>
+  <%= f.datetime_field(:completed_on, class: "form-control", required: true) %>
+<div class="d-flex justify-content-center mt-4">
+    <input name="commit" type="submit" value=<%= value_given %> class="btn btn-primary" />
+</div>
