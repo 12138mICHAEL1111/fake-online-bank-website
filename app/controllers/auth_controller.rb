@@ -66,6 +66,6 @@ class AuthController < ApplicationController
       else
         flash[:alert] = "Error: Something went wrong"
         redirect_to '/sign_up'
+      end
     end
-  end
 end

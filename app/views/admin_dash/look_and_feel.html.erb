@@ -1,0 +1,31 @@
+<div class="container d-flex flex-column align-items-center py-5">
+
+    <%= render 'components/header' %>
+
+    <h2 class="mt-5 mb-4">Edit look and feel</h2>
+    <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card">
+      <%=  form_for(@theme, :url => "/admin_dash/edit/look_and_feel", :method => 'post') do |f| %>
+        <div>
+            <label for="name" class="control-label">Service name</label>
+        </div>
+        <%= f.text_field(:name, class: "form-control", required: true) %>
+        <br/>
+        <div>
+            <label for="font" class="control-label">Global Font</label>
+        </div>
+        <%= f.text_field(:font, class: "form-control", required: true) %>
+        <br/>
+        <div>
+            <label for="buttons_color" class="control-label">Buttons color</label>
+        </div>
+        <%= f.text_field(:buttons_color, class: "form-control", required: true) %>
+        <br/>
+        <div class="d-flex justify-content-center mt-4">
+        <input name="commit" type="submit" value="Edit" class="btn btn-primary" />
+        </div>
+      <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
+    </div>
+    <%= button_to "Cancel",  "/admin_dash", :method => "get", :class => "btn btn-primary mt-4" %>
+</div>

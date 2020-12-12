@@ -1,12 +1,16 @@
-<div class="d-flex flex-row align-items-center justify-content-between w-100">
-    <div>
-    <% if current_user%>
-        Signed in as:
-        <span class="font-weight-bold"><%= current_user.name %></span>
-        <% if current_user.admin %>
-            (admin)
+<div class="d-flex flex-column align-items-center w-100">
+    <h1 class="pb-6"><%= current_theme[:name] %></h1>
+    <div class="d-flex flex-row align-items-center justify-content-between w-100 mt-4">
+        <div class="d-flex flex-row align-items-center">
+        <% if current_user%>
+            <span class="mr-1">Signed in as:</span>
+            <span class="font-weight-bold mr-1"><%= current_user.name %></span>
+            <% if current_user.admin %>
+                    <span> - admin</span>
+                    <%= button_to "Look and feel", "/admin_dash/look_and_feel",:method=>:get, :class => "btn btn-primary ml-4" %>
+            <% end %>
         <% end %>
-    <% end %>
+        </div>
+        <%= button_to "Sign out", "/sign_out", :method=>:post, :class => "btn btn-primary" %>
     </div>
-    <%= button_to "Sign out", "/sign_out", :method=>:post, :class => "btn btn-primary" %>
 </div>
