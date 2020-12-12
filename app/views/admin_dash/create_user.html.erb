@@ -4,19 +4,17 @@
     <h2 class="mt-5 mb-4">Users</h2>
     <% @users.each do |user|%>
         <div class="border shadow w-100 d-flex p-3 mb-2
-          bg-white rounded d-flex justify-content-between" type="button" style="height: 50px;"
-           onclick="window.location.href='admin_dash/user/<%= user.id %>'">
-          <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
+          bg-white rounded d-flex justify-content-between" style="height: 50px;" onclick="window.location.href='admin_dash/user/<%= user.id %>'">
+          <p style="font-size:1rem;"><strong>Email </strong><%=user.email%></p>
           <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
         </div>
     <% end %>
 
     <h2 class="mt-5 mb-4">Create User</h2>
     <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card mt4">
-      <%=  form_for(@user, :url => '/admin_dash/create/user_post', :method => 'post') do |f| %>
-        <!-- user input fields -->
         <%= render :partial => 'components/user_form_body', :locals => {:f => f, :value_given => "Create User"} %>
-      <% end %>
+        <br>
+        <p id="alert" style="color: red"><%= alert %></p>
     </div>
     <div>
     <%= button_to 'Cancel', '/admin_dash', :class => "btn btn-primary mt-4", :method => :get %>

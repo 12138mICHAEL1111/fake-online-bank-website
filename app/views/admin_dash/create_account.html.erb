@@ -20,6 +20,8 @@
                                                                             :value_given => "Create Account",
                                                                           } %>
       <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
     </div>
   <div>
     <%= button_to 'Cancel', "/admin_dash/user/#{@user.id}", :class => "btn btn-primary mt-4", :method => :get %>

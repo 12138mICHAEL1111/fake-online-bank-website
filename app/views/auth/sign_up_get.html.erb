@@ -27,6 +27,8 @@
                 <div class="d-flex justify-content-center mt-4">
                     <input name="commit" type="submit" value="Sign up" class="btn btn-primary" />
                 </div>
+                <br>
+                <p id="alert" style="color: red"><%= alert %></p>
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             </form>
         </div>

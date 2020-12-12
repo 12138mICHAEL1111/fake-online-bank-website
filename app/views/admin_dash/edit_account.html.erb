@@ -10,6 +10,8 @@
         <!-- account input fields -->
         <%= render :partial => 'components/account_form_body', :locals => {:f => f, :value_given => "Edit Account"} %>
       <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
     </div>
     <%= button_to "Cancel",  "/admin_dash/user/#{@user.id}", :method => "get", :class => "btn btn-primary mt-4" %>
 </div>
