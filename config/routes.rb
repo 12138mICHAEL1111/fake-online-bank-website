@@ -36,9 +36,9 @@ Rails.application.routes.draw do
   get '/admin_dash/edit/account/:account_id', to: 'admin_dash#edit_account'
   get '/admin_dash/edit/user/:user_id', to: 'admin_dash#edit_user'
 
-  get '/admin_dash/delete/transaction/:transaction_id', to: 'admin_dash#delete_transaction'
-  get '/admin_dash/delete/account/:account_id', to: 'admin_dash#delete_account'
-  get '/admin_dash/delete/user/:user_id', to: 'admin_dash#delete_user'
+  delete '/admin_dash/delete/transaction/:transaction_id', to: 'admin_dash#delete_transaction'
+  delete '/admin_dash/delete/account/:account_id', to: 'admin_dash#delete_account'
+  delete '/admin_dash/delete/user/:user_id', to: 'admin_dash#delete_user'
 
   post '/admin_dash/edit/transaction_post/:transaction_id', to: 'admin_dash#edit_transaction_post'
   post '/admin_dash/edit/account_post/:account_id', to: 'admin_dash#edit_account_post'
