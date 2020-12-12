@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Auth
   get '/sign_in', to: 'auth#sign_in_get'
   get '/sign_up', to: 'auth#sign_up_get'
-  post '/sign_out', to: 'auth#sign_up_post'
+  post '/sign_out', to: 'auth#sign_out_post'
   post '/sign_in_post', to: 'auth#sign_in_post'
   post '/sign_up_post', to: 'auth#sign_up_post'
 

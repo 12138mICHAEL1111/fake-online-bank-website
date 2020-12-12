@@ -21,7 +21,7 @@ class AuthController < ApplicationController
 
     def sign_out_post
         sign_out
-        redirect_to '/hej'
+        redirect_to '/'
     end
 
     def sign_in_post

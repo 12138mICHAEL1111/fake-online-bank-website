@@ -188,6 +188,7 @@ class AdminDashController < ApplicationController
         rescue
           flash[:alert] = "Error: Something went wrong"
           redirect_to("/admin_dash/edit/account/#{@account.id}")
+        end
       end
     end
 
@@ -216,13 +217,13 @@ class AdminDashController < ApplicationController
       else
         @user =  User.find(params[:user_id])
         begin
-        @user.update(user_params)
-        @user.save
-        redirect_to("/admin_dash")
-      rescue
-        flash[:alert] = "Error: Something went wrong"
-        redirect_to("/admin_dash/edit/user/#{@user.id}")
-      end
+          @user.update(user_params)
+          @user.save
+          redirect_to("/admin_dash")
+        rescue
+          flash[:alert] = "Error: Something went wrong"
+          redirect_to("/admin_dash/edit/user/#{@user.id}")
+        end
       end
     end
 
