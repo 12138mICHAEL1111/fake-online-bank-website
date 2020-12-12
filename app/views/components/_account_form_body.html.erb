@@ -1,0 +1,12 @@
+<div>
+  <label for="name" class="control-label">Account name</label>
+</div>
+  <%= f.text_field(:name, class: "form-control", required: true) %>
+  <br/>
+<div>
+  <label for="currency" class="control-label">Currency</label>
+</div>
+  <%= f.select(:currency, [['€', '€'], ['£', '£'], ['$', '$']], class: "control-label") %>
+<div class="d-flex justify-content-center mt-4">
+  <input name="commit" type="submit" value=<%= value_given %> class="btn btn-primary" />
+</div>

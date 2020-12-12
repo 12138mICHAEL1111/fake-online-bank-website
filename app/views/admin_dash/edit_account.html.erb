@@ -1,32 +1,17 @@
 <div class="container d-flex flex-column align-items-center py-5">
     <%= render 'components/header' %>
-    <h2 class="mt-5 mb-4">User</h2>
 
-    <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
-        d-flex justify-content-between" style="height: 50px;">
-      <p style="font-size:1rem;"><strong>Email: </strong><%=@user.email%></p>
-      <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= @accounts.length %></p>
-    </div>
+    <!-- Render the user selected -->
+    <%= render :partial => 'components/current_user', :locals => {:user => @user} %>
 
     <h2 class="mt-5 mb-4">Edit Account</h2>
     <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card">
       <%=  form_for(@account, :url => "/admin_dash/edit/account_post/#{@account.id}", :method => 'post') do |f| %>
-        <div>
-          <label for="name" class="control-label">Account name</label>
-        </div>
-        <%= f.text_field(:name, class: "form-control") %>
-        <br/>
-        <div>
-          <label for="name" class="control-label">Currency</label>
-        </div>
-        <%= f.select(:currency, [['€', '€'], ['£', '£'], ['$', '$']], class: "control-label") %>
-        <div class="d-flex justify-content-center mt-4">
-            <input name="commit" type="submit" value="Edit account" class="btn btn-primary" />
-        </div>
+        <!-- account input fields -->
+        <%= render :partial => 'components/account_form_body', :locals => {:f => f, :value_given => "Edit Account"} %>
       <% end %>
       <br>
       <p id="alert" style="color: red"><%= alert %></p>
     </div>
-
     <%= button_to "Cancel",  "/admin_dash/user/#{@user.id}", :method => "get", :class => "btn btn-primary mt-4" %>
 </div>

@@ -97,7 +97,7 @@ class AdminDashController < ApplicationController
         @account = Account.find(params[:account_id])
         @user = @account.user
         @accounts = @user.accounts
-        @transactions = @account.transactions
+        @transactions = @account.transactions.order(completed_on: :desc)
         @transaction = Transaction.new
       end
     end
@@ -136,27 +136,34 @@ class AdminDashController < ApplicationController
     end
 
     def edit_transaction_post
-      originalTransaction = Transaction.find(params[:transaction_id])
-      @transaction = Transaction.find(params[:transaction_id])
-      begin @transaction.update(tran_params)
-        @account = @transaction.account
-        @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
-        @account.save
-        redirect_to("/admin_dash/account/#{@account.id}")
-      rescue
-        flash[:alert] = "Error: Something went wrong"
-        redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
-
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        originalTransaction = Transaction.find(params[:transaction_id])
+        @transaction = Transaction.find(params[:transaction_id])
+        begin @transaction.update(tran_params)
+          @account = @transaction.account
+          @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
+          @account.save
+          redirect_to("/admin_dash/account/#{@account.id}")
+        rescue
+          flash[:alert] = "Error: Something went wrong"
+          redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
+        end
       end
     end
 
     def delete_transaction
-      @transaction = Transaction.find(params[:transaction_id])
-      @account = @transaction.account
-      @account.balance = (@account.balance-@transaction.amount).round(2)
-      @transaction.destroy
-      @account.save
-      redirect_to("/admin_dash/account/#{@account.id}")
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @transaction = Transaction.find(params[:transaction_id])
+        @account = @transaction.account
+        @account.balance = (@account.balance-@transaction.amount).round(2)
+        @transaction.destroy
+        @account.save
+        redirect_to("/admin_dash/account/#{@account.id}")
+      end
     end
 
     def edit_account
@@ -170,22 +177,29 @@ class AdminDashController < ApplicationController
     end
 
     def edit_account_post
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
         @account =  Account.find(params[:account_id])
         @user = @account.user
         begin @account.update(account_params)
-        @account.save
-        redirect_to("/admin_dash/user/#{@user.id}")
-      rescue
-        flash[:alert] = "Error: Something went wrong"
-        redirect_to("/admin_dash/edit/account/#{@account.id}")
+          @account.save
+          redirect_to("/admin_dash/user/#{@user.id}")
+        rescue
+          flash[:alert] = "Error: Something went wrong"
+          redirect_to("/admin_dash/edit/account/#{@account.id}")
       end
     end
 
     def delete_account
-      @account =  Account.find(params[:account_id])
-      @user = @account.user
-      @account.destroy
-      redirect_to("/admin_dash/user/#{@user.id}")
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @account =  Account.find(params[:account_id])
+        @user = @account.user
+        @account.destroy
+        redirect_to("/admin_dash/user/#{@user.id}")
+      end
     end
 
     def edit_user
@@ -213,10 +227,14 @@ class AdminDashController < ApplicationController
     end
 
     def delete_user
-      @user =  User.find(params[:user_id])
+      if current_user == nil || current_user.admin == false
+          redirect_to '/'
+      else
+        @user =  User.find(params[:user_id])
 
-      @user.destroy
-      redirect_to("/admin_dash")
+        @user.destroy
+        redirect_to("/admin_dash")
+      end
     end
 
     def generate_transaction
@@ -234,6 +252,7 @@ class AdminDashController < ApplicationController
             end
         end
     end
+
     private
       def tran_params
         params.require(:transaction).permit(:amount,:description,:completed_on)
@@ -246,6 +265,4 @@ class AdminDashController < ApplicationController
       def user_params
         params.require(:user).permit(:email,:name)
       end
-
-
 end
