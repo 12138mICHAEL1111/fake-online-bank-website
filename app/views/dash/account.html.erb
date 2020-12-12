@@ -1,32 +1,15 @@
 <div class="container d-flex flex-column align-items-center py-5">
     <%= render 'components/header' %>
 
-    <h2 class="mt-5 mb-4">Account</h2>
+    <!-- Render current account -->
+    <%= render :partial => 'components/current_account', :locals => {:account => @account} %>
 
-    <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded d-flex
-        justify-content-between" style="height: 50px;">
-      <p style="font-size:1rem;"><strong>Account name: </strong><%=@account.name%></p>
-      <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyBalance(@account.balance, @account.currency) %></p>
-    </div>
-
-    <h2 class="mt-5 mb-4">Transactions</h2>
-
-    <% @transactions.each do |transaction|%>
-        <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white d-flex
-            justify-content-between" style="height: 50px;">
-            <div class="w-25">
-              <span class="text-nowrap">
-              <p style="font-size:1rem;"><strong>Description: </strong><%= transaction.description %></p>
-              </span>
-            </div>
-            <div class=" d-flex justify-content-end ml-5">
-              <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
-            </div>
-            <div class="w-25 d-flex justify-content-end">
-              <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyAmount(transaction.amount, @account.currency)%></p>
-            </div>
-        </div>
-    <% end %>
+    <!-- Render transactions -->
+    <%= render :partial => 'components/transactions', :locals => {
+                                                                    :transactions => @transactions,
+                                                                    :account => @account,
+                                                                    :render_edit_delete_buttons => false
+                                                                  } %>
 
     <%= button_to "Back", "/dash", :method => "get", :class => "btn btn-primary mt-4" %>
 </div>
