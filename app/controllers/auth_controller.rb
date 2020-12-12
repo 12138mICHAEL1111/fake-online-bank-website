@@ -47,8 +47,7 @@ class AuthController < ApplicationController
 
     def sign_up_post
         p params
-        @new_user = User.new
-        p @new_user
+        p "heeej"
         @user = User.create({
             :email => params[:email],
             :name => params[:name],
@@ -56,8 +55,10 @@ class AuthController < ApplicationController
             :password_confirmation => params[:password_confirmation],
             :admin => params[:admin] || false
         })
+        p @user
+        p "heeej"
         if @user.save
-        sign_in @user
+          sign_in @user
         if @user.admin
             redirect_to '/admin_dash'
         else
