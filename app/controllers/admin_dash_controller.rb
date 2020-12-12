@@ -254,6 +254,31 @@ class AdminDashController < ApplicationController
         end
     end
 
+    def look_and_feel
+      if current_user == nil || current_user.admin == false
+        redirect_to '/'
+      else
+        @theme = Theme.find(1)
+      end
+    end
+
+    def look_and_feel_post
+      if current_user == nil || current_user.admin == false
+        redirect_to '/'
+      else
+        begin
+          @theme = Theme.find(1)
+          @theme.name = params[:theme][:name]
+          @theme.font = params[:theme][:font]
+          @theme.buttons_color = params[:theme][:buttons_color]
+          @theme.save
+        rescue
+          flash[:alert] = "Error: Something went wrong"
+        end
+        redirect_to("/admin_dash/look_and_feel")
+      end
+    end
+
     private
       def tran_params
         params.require(:transaction).permit(:amount,:description,:completed_on)

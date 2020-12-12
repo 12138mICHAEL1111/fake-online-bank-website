@@ -13,4 +13,12 @@ module ApplicationHelper
       "+#{currency}#{amount}"
     end
   end
+
+  def current_theme
+    if Theme.all.count == 0
+      Theme.create({name: "Banking 101", font: "Arial", buttons_color: "#007BFF"})
+    else
+      Theme.find(1)
+    end
+  end
 end
