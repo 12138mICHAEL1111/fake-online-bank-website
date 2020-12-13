@@ -2,7 +2,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/reporters'
-parallelize(workers: :number_of_processors, with: :threads)
 Minitest::Reporters.use!
 
 class ActiveSupport::TestCase

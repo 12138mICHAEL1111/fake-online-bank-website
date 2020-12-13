@@ -141,12 +141,13 @@ class AdminDashController < ApplicationController
       else
         originalTransaction = Transaction.find(params[:transaction_id])
         @transaction = Transaction.find(params[:transaction_id])
-        begin @transaction.update(tran_params)
+        @transaction.update(tran_params)
           @account = @transaction.account
           @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
+        if @transaction.save
           @account.save
           redirect_to("/admin_dash/account/#{@account.id}")
-        rescue
+        else
           flash[:alert] = "Error: Something went wrong"
           redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
         end
@@ -182,10 +183,10 @@ class AdminDashController < ApplicationController
       else
         @account =  Account.find(params[:account_id])
         @user = @account.user
-        begin @account.update(account_params)
-          @account.save
+        @account.update(account_params)
+        if @account.save
           redirect_to("/admin_dash/user/#{@user.id}")
-        rescue
+        else
           flash[:alert] = "Error: Something went wrong"
           redirect_to("/admin_dash/edit/account/#{@account.id}")
         end
@@ -216,11 +217,10 @@ class AdminDashController < ApplicationController
           redirect_to '/'
       else
         @user =  User.find(params[:user_id])
-        begin
-          @user.update(user_params)
-          @user.save
+        @user.update(user_params)
+        if  @user.save
           redirect_to("/admin_dash")
-        rescue
+        else
           flash[:alert] = "Error: Something went wrong"
           redirect_to("/admin_dash/edit/user/#{@user.id}")
         end
