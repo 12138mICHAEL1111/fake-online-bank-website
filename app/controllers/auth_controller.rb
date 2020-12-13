@@ -65,7 +65,15 @@ class AuthController < ApplicationController
             redirect_to '/dash'
         end
       else
-        flash[:alert] = "Error: Something went wrong"
+        if (params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+          flash[:alert] = "Error: name should not contain any number or special character"
+        end
+        if (params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+          flash[:alert] = "Error: wrong format of email"
+        end
+        if(params[:password]!=params[:password_confirmation])
+          flash[:alert] = "Error: please input same password"
+        end
         redirect_to '/sign_up'
       end
     end

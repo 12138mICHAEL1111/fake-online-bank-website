@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :accounts, dependent: :destroy
   validates :email, presence: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-  validates_format_of :name, :with => /\A[a-z]+\z/i
-  validates_uniqueness_of :email 
+  #name for user can only contain letter space '.' and '
+  validates_format_of :name, :with => /(^[a-zA-Z\.\s\']+$)|^$/, :multiline => true
+  validates_uniqueness_of :email
 end

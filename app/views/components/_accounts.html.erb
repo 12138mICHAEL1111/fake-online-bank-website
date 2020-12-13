@@ -4,14 +4,20 @@
       <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white d-flex justify-content-between"
            style="height: 50px;"
            type="button" onclick="window.location.href='<%= page_to_be_loaded + account.id.to_s %>'">
-        <p style="font-size:1rem;"><strong>Account name: </strong><%= account.name %></p>
-        <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(account.currency, account.balance)%></p>
-        <% if render_edit_delete_buttons %>
-          <div class = 'btn-group', style = "margin-top:-11px">
-            <%= button_to "Edit", "/admin_dash/edit/account/#{account.id}", :method => "get", :class => "btn btn-secondary ml-5"%>
-            <%= button_to "Delete", "/admin_dash/delete/account/#{account.id}", :method => "delete", :class => "btn btn-primary ml-2 " %>
+           <div class="w-25">
+             <span class="text-nowrap">
+               <p style="font-size:1rem;"><strong>Account name: </strong><%= account.name %></p>
+            <span>
           </div>
-        <% end %>
+          <div class="w-25 d-flex justify-content-start mr-5">
+            <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(account.currency, account.balance)%></p>
+          </div>
+          <% if render_edit_delete_buttons %>
+            <div class = 'btn-group', style = "margin-top:-11px">
+              <%= button_to "Edit", "/admin_dash/edit/account/#{account.id}", :method => "get", :class => "btn btn-secondary ml-5"%>
+              <%= button_to "Delete", "/admin_dash/delete/account/#{account.id}", :method => "delete", :class => "btn btn-primary ml-2 " %>
+            </div>
+          <% end %>
       </div>
   <% end %>
 </div>

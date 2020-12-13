@@ -144,13 +144,13 @@ class AdminDashController < ApplicationController
         @transaction.update(tran_params)
         @account = @transaction.account
         @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
-          if @transaction.save
-            @account.save
-            redirect_to("/admin_dash/account/#{@account.id}")
-          else
-            flash[:alert] = "Error: Something went wrong"
-            redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
-          end
+        if @transaction.save
+          @account.save
+          redirect_to("/admin_dash/account/#{@account.id}")
+        else
+          flash[:alert] = "Error: Please input a correct date format in YYYY-MM-DD"
+          redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
+        end
       end
     end
 
@@ -221,7 +221,12 @@ class AdminDashController < ApplicationController
         if  @user.save
           redirect_to("/admin_dash")
         else
-          flash[:alert] = "Error: Something went wrong"
+          if (user_params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+            flash[:alert] = "Error: name should not contain any number or special character"
+          end
+          if (user_params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+            flash[:alert] = "Error: wrong format of email"
+          end
           redirect_to("/admin_dash/edit/user/#{@user.id}")
         end
       end
