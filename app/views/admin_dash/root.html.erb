@@ -1,24 +1,30 @@
 <div class="container d-flex flex-column align-items-center py-5">
     <%= render 'components/header' %>
     <h2 class="mt-5 mb-4">Users</h2>
-    <% @users.each do |user|%>
-        <div class="border shadow w-100 d-flex p-3 mb-2
-          bg-white rounded d-flex justify-content-between" type="button" style="height: 50px;"
-           onclick="window.location.href='admin_dash/user/<%= user.id %>'">
-           <div class="w-25">
-             <span class="text-nowrap">
-          <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
-            <span>
+    <% if @users.empty? %>
+      <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white justify-content-center"
+       style="height: 50px;"><p style="font-size:1rem;">No users</p></div>
+    <% else %>
+      <% @users.each do |user|%>
+          <div class="border shadow w-100 p-3 mb-2 bg-white rounded d-flex
+             justify-content-between" type="button" style="height: 50px;"
+             onclick="window.location.href='admin_dash/user/<%= user.id %>'">
+             <div class="w-25">
+               <span class="text-nowrap">
+            <p style="font-size:1rem;"><strong>Email: </strong><%=user.email%></p>
+              <span>
+            </div>
+            <div class="w-25 d-flex justify-content-start mr-5">
+              <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
+            </div>
+            <div class = 'btn-group', style = "margin-top:-11px">
+              <%= button_to "Edit", "/admin_dash/edit/user/#{user.id}", :method => "get", :class => "btn btn-secondary"%>
+              <%= button_to "Delete", "/admin_dash/delete/user/#{user.id}", :method => "delete", :class => "btn btn-primary ml-2 " %>
+            </div>
           </div>
-          <div class="w-25 d-flex justify-content-start mr-5">
-            <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
-          </div>
-          <div class = 'btn-group', style = "margin-top:-11px">
-            <%= button_to "Edit", "/admin_dash/edit/user/#{user.id}", :method => "get", :class => "btn btn-secondary"%>
-            <%= button_to "Delete", "/admin_dash/delete/user/#{user.id}", :method => "delete", :class => "btn btn-primary ml-2 " %>
-          </div>
-        </div>
+      <% end %>
     <% end %>
+
     <div>
     <%= button_to 'Create User', '/admin_dash/create/user', :class => "btn btn-primary mt-4", :method => :get %>
     </div>
