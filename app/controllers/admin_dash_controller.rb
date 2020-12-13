@@ -55,7 +55,12 @@ class AdminDashController < ApplicationController
         if @user.save
           redirect_to('/admin_dash')
         else
-          flash[:alert] = "Error: Something went wrong"
+          if (user_params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+            flash[:alert] = "Error: name should not contain any number or special character"
+          end
+          if (user_params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+            flash[:alert] = "Error: wrong format of email"
+          end
           redirect_to('/admin_dash/create/user')
         end
       end

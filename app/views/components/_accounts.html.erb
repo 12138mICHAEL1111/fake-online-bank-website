@@ -1,13 +1,17 @@
 <h2 class="mt-5 mb-4">Accounts</h2>
 <div class="w-100">
-  <% accounts.each do |account|%>
-      <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white d-flex justify-content-between"
-           style="height: 50px;"
-           type="button" onclick="window.location.href='<%= page_to_be_loaded + account.id.to_s %>'">
-           <div class="w-25">
-             <span class="text-nowrap">
-               <p style="font-size:1rem;"><strong>Account name: </strong><%= account.name %></p>
-            <span>
+  <% if accounts.empty? %>
+    <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white justify-content-center"
+     style="height: 50px;"><p style="font-size:1rem;">No accounts</p></div>
+  <% else %>
+    <% accounts.each do |account|%>
+        <div class="border rounded shadow w-100 p-3 mb-2 bg-white d-flex justify-content-between"
+            style="height: 50px;"
+            type="button" onclick="window.location.href='<%= page_to_be_loaded + account.id.to_s %>'">
+            <div class="w-25">
+              <span class="text-nowrap">
+                <p style="font-size:1rem;"><strong>Account name: </strong><%= account.name %></p>
+              <span>
           </div>
           <div class="w-25 d-flex justify-content-start mr-5">
             <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(account.currency, account.balance)%></p>
@@ -18,6 +22,7 @@
               <%= button_to "Delete", "/admin_dash/delete/account/#{account.id}", :method => "delete", :class => "btn btn-primary ml-2 " %>
             </div>
           <% end %>
-      </div>
+        </div>
+    <% end %>
   <% end %>
 </div>

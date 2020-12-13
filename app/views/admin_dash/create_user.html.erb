@@ -2,12 +2,17 @@
     <%= render 'components/header' %>
 
     <h2 class="mt-5 mb-4">Users</h2>
-    <% @users.each do |user|%>
-        <div class="border shadow w-100 d-flex p-3 mb-2
-          bg-white rounded d-flex justify-content-between" style="height: 50px;" onclick="window.location.href='/admin_dash/user/<%= user.id %>'">
-          <p style="font-size:1rem;"><strong>Email </strong><%=user.email%></p>
-          <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
-        </div>
+    <% if @users.empty? %>
+      <div class="border rounded shadow w-100 d-flex p-3 mb-2 bg-white justify-content-center"
+       style="height: 50px;"><p style="font-size:1rem;">No users</p></div>
+    <% else %>
+      <% @users.each do |user|%>
+          <div class="border shadow w-100 d-flex p-3 mb-2
+            bg-white rounded d-flex justify-content-between" style="height: 50px;" onclick="window.location.href='/admin_dash/user/<%= user.id %>'">
+            <p style="font-size:1rem;"><strong>Email </strong><%=user.email%></p>
+            <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
+          </div>
+      <% end %>
     <% end %>
 
     <h2 class="mt-5 mb-4">Create User</h2>
