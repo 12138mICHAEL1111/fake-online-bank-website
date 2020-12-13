@@ -142,15 +142,15 @@ class AdminDashController < ApplicationController
         originalTransaction = Transaction.find(params[:transaction_id])
         @transaction = Transaction.find(params[:transaction_id])
         @transaction.update(tran_params)
-          @account = @transaction.account
-          @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
-        if @transaction.save
-          @account.save
-          redirect_to("/admin_dash/account/#{@account.id}")
-        else
-          flash[:alert] = "Error: Something went wrong"
-          redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
-        end
+        @account = @transaction.account
+        @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
+          if @transaction.save
+            @account.save
+            redirect_to("/admin_dash/account/#{@account.id}")
+          else
+            flash[:alert] = "Error: Something went wrong"
+            redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
+          end
       end
     end
 
