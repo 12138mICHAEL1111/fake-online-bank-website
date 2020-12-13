@@ -46,4 +46,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(name:'maike#',email:'maike.zhang@gmail.com',password:'123456',password_confirmation:'123456')
     assert_not user.save
   end
+
+  test "user with password less than 6 characters is not valid" do
+    user = User.new(name:'maike',email:'maike.zhang@gmail.com',password:'12345',password_confirmation:'12345')
+    assert_not user.save
+  end
 end
