@@ -8,3 +8,4 @@ testUser:
   id: 1
   email: 'test@test.com'
   name: 'test'
+  admin: 1
