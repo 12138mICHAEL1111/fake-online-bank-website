@@ -16,7 +16,5 @@ class AdminCreateThemeTest < ActionDispatch::IntegrationTest
 
     post "/admin_dash/edit/look_and_feel", params: {theme: {name: "New bank name.", font: "Arial", buttons_color: "green"}}
     assert_redirected_to "/admin_dash/look_and_feel"
-
-    assert_select "input[value=?]",  "New bank name."
   end
 end
