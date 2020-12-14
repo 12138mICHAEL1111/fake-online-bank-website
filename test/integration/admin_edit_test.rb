@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserDashTest < ActionDispatch::IntegrationTest
+class AdminEditTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
