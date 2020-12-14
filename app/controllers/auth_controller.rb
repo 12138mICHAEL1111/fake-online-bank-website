@@ -39,7 +39,7 @@ class AuthController < ApplicationController
                     redirect_to '/dash'
                 end
             else
-                flash[:alert] = "Error: Something went wrong"
+                  flash[:alert] = "Error: incorrect email or password"
                 redirect_to '/sign_in'
             end
         end
@@ -65,7 +65,17 @@ class AuthController < ApplicationController
             redirect_to '/dash'
         end
       else
-        flash[:alert] = "Error: Something went wrong"
+        if (params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+          flash[:alert] = "Error: name should not contain any number or special character"
+        elsif (params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+          flash[:alert] = "Error: wrong format of email"
+        elsif(params[:password].length<6)
+          flash[:alert] = "Error: please input a password have more than 6 characters"
+        elsif(params[:password]!=params[:password_confirmation])
+          flash[:alert] = "Error: please input same password"
+        elsif(User.find_by_email(params[:email])!=nil)
+          flash[:alert] = "Error: email already exists"
+        end
         redirect_to '/sign_up'
       end
     end

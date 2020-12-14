@@ -4,8 +4,9 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+firstTransaction:
+  id: 1
+  amount: -5
+  description: 'tesco'
+  completed_on: '2020-10-15'
+  account_id: '1'
