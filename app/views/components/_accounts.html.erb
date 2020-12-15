@@ -14,7 +14,8 @@
               <span>
           </div>
           <div class="w-25 d-flex justify-content-start mr-5">
-            <p style="font-size:1rem;"><strong>Balance: </strong><%= combineCurrencyAmount(account.currency, account.balance)%></p>
+            <p style="font-size:1rem;"><strong>Balance: </strong>
+              <%= combineCurrencyAmount(account.currency, account.balance, "Account Balance")%></p>
           </div>
           <% if render_edit_delete_buttons %>
             <div class = 'btn-group', style = "margin-top:-11px">
