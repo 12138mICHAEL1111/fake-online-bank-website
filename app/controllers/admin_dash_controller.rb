@@ -124,6 +124,7 @@ class AdminDashController < ApplicationController
             @account = @transaction.account
             @account.balance = (@account.balance + @transaction.amount).round(2)
               redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
+            @account.save
 
           rescue
             flash[:alert] = "Error: Something went wrong"
