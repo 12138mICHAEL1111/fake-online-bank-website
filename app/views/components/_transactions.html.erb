@@ -16,7 +16,8 @@
             <p style="font-size:1rem;"><strong>Date: </strong><%= transaction.completed_on.strftime("%d/%m/%Y") %></p>
           </div>
           <div class="w-25 d-flex justify-content-end">
-            <p style="font-size:1rem;"><strong>Amount: </strong><%= combineCurrencyAmount(@account.currency, transaction.amount)%></p>
+            <p style="font-size:1rem;"><strong>Amount: </strong>
+              <%= combineCurrencyAmount(@account.currency, transaction.amount, "Transaction Amount")%></p>
           </div>
           <% if render_edit_delete_buttons %>
             <div class = 'btn-group', style = "margin-top:-11px">
