@@ -7,8 +7,8 @@
        style="height: 50px;"><p style="font-size:1rem;">No users</p></div>
     <% else %>
       <% @users.each do |user|%>
-          <div class="border shadow w-100 d-flex p-3 mb-2
-            bg-white rounded d-flex justify-content-between" style="height: 50px;"
+          <div class="border shadow w-100 p-3 mb-2 bg-white rounded d-flex
+          justify-content-between" style="height: 50px;"
             type = "button" onclick="window.location.href='/admin_dash/user/<%= user.id %>'">
             <p style="font-size:1rem;"><strong>Email </strong><%=user.email%></p>
             <p style="font-size:1rem;"><strong>Number of accounts: </strong><%= user.accounts.length %></p>
