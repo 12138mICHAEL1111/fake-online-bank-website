@@ -28,7 +28,7 @@ class AuthController < ApplicationController
         @user = User.find_by_email(params[:email])
 
         if @user == nil
-            flash[:alert] = "Error: Something went wrong"
+            flash[:alert] = "Error: incorrect email or password"
             redirect_to '/sign_in'
         else
             if @user.valid_password?(params[:password])

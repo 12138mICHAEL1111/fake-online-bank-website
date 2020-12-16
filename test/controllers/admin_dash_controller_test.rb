@@ -59,6 +59,4 @@ class AdminDashControllerTest < ActionDispatch::IntegrationTest
       generateTransactionArray(account.id)
     end
   end
-
-
 end

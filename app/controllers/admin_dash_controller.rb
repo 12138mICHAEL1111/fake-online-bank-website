@@ -120,14 +120,14 @@ class AdminDashController < ApplicationController
             :description => params[:transaction][:description],
             :completed_on => params[:transaction][:completed_on],
           })
-          begin @transaction.save
+          if @transaction.save
             @account = @transaction.account
             @account.balance = (@account.balance + @transaction.amount).round(2)
-              redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
             @account.save
+            redirect_to("/admin_dash/account/#{params[:account_id]}")
 
-          rescue
-            flash[:alert] = "Error: Something went wrong"
+          else
+            flash[:alert] = "Error: Please input a correct date format in YYYY-MM-DD"
             redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
           end
         end
@@ -148,12 +148,12 @@ class AdminDashController < ApplicationController
       if current_user == nil || current_user.admin == false
           redirect_to '/'
       else
-        originalTransaction = Transaction.find(params[:transaction_id])
         @transaction = Transaction.find(params[:transaction_id])
+        amount = @transaction.amount
         @transaction.update(tran_params)
-        @account = @transaction.account
-        @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
         if @transaction.save
+          @account = @transaction.account
+          @account.balance = (@account.balance-amount + @transaction.amount).round(2)
           @account.save
           redirect_to("/admin_dash/account/#{@account.id}")
         else
