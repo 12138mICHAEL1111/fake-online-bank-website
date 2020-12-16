@@ -59,13 +59,4 @@ module AdminDashHelper
     end
     return false
   end
-
-
-
-
-
-
-
-
-
 end

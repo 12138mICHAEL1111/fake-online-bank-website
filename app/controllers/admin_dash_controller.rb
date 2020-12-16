@@ -55,7 +55,15 @@ class AdminDashController < ApplicationController
         if @user.save
           redirect_to('/admin_dash')
         else
-          flash[:alert] = "Error: Something went wrong"
+          if (params[:user][:name] =~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+            flash[:alert] = "Error: name should not contain any number or special character"
+          elsif (params[:user][:email] =~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+            flash[:alert] = "Error: wrong format of email"
+          elsif(params[:user][:password].length<6)
+            flash[:alert] = "Error: please input a password have more than 6 characters"
+          elsif(User.find_by_email(params[:user][:email])!=nil)
+            flash[:alert] = "Error: email already exists"
+          end
           redirect_to('/admin_dash/create/user')
         end
       end
@@ -112,13 +120,14 @@ class AdminDashController < ApplicationController
             :description => params[:transaction][:description],
             :completed_on => params[:transaction][:completed_on],
           })
-          begin @transaction.save
+          if @transaction.save
             @account = @transaction.account
             @account.balance = (@account.balance + @transaction.amount).round(2)
-              redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
+            @account.save
+            redirect_to("/admin_dash/account/#{params[:account_id]}")
 
-          rescue
-            flash[:alert] = "Error: Something went wrong"
+          else
+            flash[:alert] = "Error: Please input a correct date format in YYYY-MM-DD"
             redirect_to("/admin_dash/create/transaction/#{params[:account_id]}")
           end
         end
@@ -139,15 +148,16 @@ class AdminDashController < ApplicationController
       if current_user == nil || current_user.admin == false
           redirect_to '/'
       else
-        originalTransaction = Transaction.find(params[:transaction_id])
         @transaction = Transaction.find(params[:transaction_id])
-        begin @transaction.update(tran_params)
+        amount = @transaction.amount
+        @transaction.update(tran_params)
+        if @transaction.save
           @account = @transaction.account
-          @account.balance = (@account.balance-originalTransaction.amount + @transaction.amount).round(2)
+          @account.balance = (@account.balance-amount + @transaction.amount).round(2)
           @account.save
           redirect_to("/admin_dash/account/#{@account.id}")
-        rescue
-          flash[:alert] = "Error: Something went wrong"
+        else
+          flash[:alert] = "Error: Please input a correct date format in YYYY-MM-DD"
           redirect_to("/admin_dash/edit/transaction/#{params[:transaction_id]}")
         end
       end
@@ -182,10 +192,10 @@ class AdminDashController < ApplicationController
       else
         @account =  Account.find(params[:account_id])
         @user = @account.user
-        begin @account.update(account_params)
-          @account.save
+        @account.update(account_params)
+        if @account.save
           redirect_to("/admin_dash/user/#{@user.id}")
-        rescue
+        else
           flash[:alert] = "Error: Something went wrong"
           redirect_to("/admin_dash/edit/account/#{@account.id}")
         end
@@ -216,12 +226,16 @@ class AdminDashController < ApplicationController
           redirect_to '/'
       else
         @user =  User.find(params[:user_id])
-        begin
-          @user.update(user_params)
-          @user.save
+        @user.update(user_params)
+        if  @user.save
           redirect_to("/admin_dash")
-        rescue
-          flash[:alert] = "Error: Something went wrong"
+        else
+          if (user_params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
+            flash[:alert] = "Error: name should not contain any number or special character"
+          end
+          if (user_params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
+            flash[:alert] = "Error: wrong format of email"
+          end
           redirect_to("/admin_dash/edit/user/#{@user.id}")
         end
       end
@@ -244,12 +258,9 @@ class AdminDashController < ApplicationController
         else
             account = Account.find(params[:account_id].to_i)
             if generateTransactionArray(account.id)
-              # generate the flash success
               redirect_to("/admin_dash/account/#{params[:account_id]}")
             else
-              # generate the flash error
-              redirect_to("/admin_dash")
-              # the redirect was just used for debug
+              flash[:alert] = "Error: Could not generate transactions"
             end
         end
     end

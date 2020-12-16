@@ -11,5 +11,6 @@
                                                                     :render_edit_delete_buttons => false
                                                                   } %>
 
+    <%= button_to "Send money", "/dash/create/transaction/#{@account.id}", :method => "get", :class => "btn btn-primary mt-4" %>                                                            
     <%= button_to "Back", "/dash", :method => "get", :class => "btn btn-primary mt-4" %>
 </div>

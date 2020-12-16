@@ -1,0 +1,23 @@
+<div class="container d-flex flex-column align-items-center py-5">
+
+    <%= render 'components/header' %>
+
+    <!-- Render the user selected -->
+    <%= render :partial => 'components/current_user', :locals => {:user => @user} %>
+
+    <!-- Render current account -->
+    <%= render :partial => 'components/current_account', :locals => {:account => @account} %>
+
+    <h2 class="mt-5 mb-4">Send money</h2>
+    <div class="border shadow w-100 d-flex flex-column p-3 mb-2 bg-white rounded form_card">
+      <%=  form_for(@transaction, :url => "/dash/create/transaction_post/#{@account.id}", :method => 'post') do |f| %>
+        <!-- transaction input fields -->
+        <%= render :partial => 'components/transaction_form_body_dash', :locals => {:f => f, :value_given => "Send"} %>
+      <% end %>
+      <br>
+      <p id="alert" style="color: red"><%= alert %></p>
+    </div>
+  <div>
+    <%= button_to 'Cancel', "/dash/account/#{@account.id}", :class => "btn btn-primary mt-4", :method => :get %>
+  </div>
+</div>

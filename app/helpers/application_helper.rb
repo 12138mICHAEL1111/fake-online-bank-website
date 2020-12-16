@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def combineCurrencyAmount(currency, amount)
+  def combineCurrencyAmount(currency, amount, type)
     # display 100 instead of 100.0
     if amount % 10 == 0
       amount = amount.round
@@ -10,7 +10,11 @@ module ApplicationHelper
     if amount < 0
       "-#{currency}#{(amount).abs}"
     else
-      "+#{currency}#{amount}"
+      if type == "Transaction Amount"
+        "+#{currency}#{amount}"
+      else
+        "#{currency}#{amount}"
+      end
     end
   end
 
