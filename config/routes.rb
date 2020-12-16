@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   # Dash paths
   get '/dash', to: 'dash#root'
   get '/dash/account/:account_id', to: 'dash#account'
+  get '/dash/create/transaction/:account_id', to: 'dash#create_transaction'
+
+  post '/dash/create/transaction_post/:account_id', to: 'dash#create_transaction_post'
 
   # Admin dash paths
   get '/admin_dash', to: 'admin_dash#root'
