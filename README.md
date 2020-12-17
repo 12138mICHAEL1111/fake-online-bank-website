@@ -29,3 +29,7 @@ User:
 
 - email: user@gmail.com
 - password: banking101
+
+### Reused code
+
+For authentication we used the devise gem: https://github.com/heartcombo/devise
