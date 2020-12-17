@@ -9,16 +9,6 @@ class AuthController < ApplicationController
         end
     end
 
-    def sign_up_get
-        if current_user
-            if current_user.admin
-                redirect_to '/admin_dash'
-            else
-                redirect_to '/dash'
-            end
-        end
-    end
-
     def sign_out_post
         sign_out
         redirect_to '/'
@@ -43,40 +33,5 @@ class AuthController < ApplicationController
                 redirect_to '/sign_in'
             end
         end
-    end
-
-    def sign_up_post
-        p params
-        p "heeej"
-        @user = User.create({
-            :email => params[:email],
-            :name => params[:name],
-            :password => params[:password],
-            :password_confirmation => params[:password_confirmation],
-            :admin => params[:admin] || false
-        })
-        p @user
-        p "heeej"
-        if @user.save
-          sign_in @user
-        if @user.admin
-            redirect_to '/admin_dash'
-        else
-            redirect_to '/dash'
-        end
-      else
-        if (params[:name]=~/(^[a-zA-Z\.\s\']+$)|^$/) == nil
-          flash[:alert] = "Error: name should not contain any number or special character"
-        elsif (params[:email]=~/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i) == nil
-          flash[:alert] = "Error: wrong format of email"
-        elsif(params[:password].length<6)
-          flash[:alert] = "Error: please input a password have more than 6 characters"
-        elsif(params[:password]!=params[:password_confirmation])
-          flash[:alert] = "Error: please input same password"
-        elsif(User.find_by_email(params[:email])!=nil)
-          flash[:alert] = "Error: email already exists"
-        end
-        redirect_to '/sign_up'
-      end
     end
 end
