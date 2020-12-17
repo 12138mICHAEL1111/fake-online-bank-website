@@ -21,28 +21,28 @@ module AdminDashHelper
         account_id: account_id,
         description: Faker::Restaurant.name,
         amount: Faker::Number.normal(mean: -30, standard_deviation: 5).to_d.round(2),
-        completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
+        completed_on: Faker::Date.between(from: "2020-01-01", to: Date.today)
       }
     when "Appliances"
       {
         account_id: account_id,
         description: Faker::Appliance.brand,
         amount: Faker::Number.normal(mean: -200, standard_deviation: 20).to_d.round(2),
-        completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
+        completed_on: Faker::Date.between(from: "2020-01-01", to: Date.today)
       }
     when "Bills"
       {
         account_id: account_id,
         description: Faker::Company.name,
         amount: Faker::Number.normal(mean: -20, standard_deviation: 2.5).to_d.round(2),
-        completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
+        completed_on: Faker::Date.between(from: "2020-01-01", to: Date.today)
       }
     when "Friend"
       {
         account_id: account_id,
         description: Faker::Name.name,
         amount: Faker::Number.normal(mean: 70, standard_deviation: 25).to_d.round(2),
-        completed_on: Faker::Date.between(from: "2020-01-01", to: "2020-12-30")
+        completed_on: Faker::Date.between(from: "2020-01-01", to: Date.today)
       }
     end
   end

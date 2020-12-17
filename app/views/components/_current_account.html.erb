@@ -1,7 +1,7 @@
 <h2 class="mt-5 mb-4">Account</h2>
 <div class="w-100">
-  <div class="border shadow w-100 d-flex p-3 mb-2 bg-white rounded
-      d-flex justify-content-between" style="height: 50px;">
+  <div class="border shadow w-100 p-3 mb-2 bg-white rounded d-flex
+  justify-content-between" style="height: 50px;">
     <p style="font-size:1rem;"><strong>Account name: </strong><%=@account.name%></p>
     <p style="font-size:1rem;"><strong>Balance: </strong>
       <%= combineCurrencyAmount(@account.currency, @account.balance, "Account Balance") %></p>
