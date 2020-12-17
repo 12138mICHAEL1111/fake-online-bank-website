@@ -8,7 +8,7 @@ Team Skimmer
 
 - Jure Sotosek
 - Andrei Balcau
-- Cristian Impollonia
+- Christian Impollonia
 - Maike Zhang
 - Muhammad Shehzad
 
